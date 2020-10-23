@@ -28,8 +28,9 @@ def reply():
   mm_per_px = image_reviser.get_mm_per_px()
   img = image_reviser.get_img() # ndarray
 
+
   return jsonify({
-    "data": mm_per_px
+    "mm_per_px": mm_per_px
   })
 
 
