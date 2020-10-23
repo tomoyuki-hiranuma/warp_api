@@ -2,6 +2,8 @@ from flask import Flask, jsonify, request
 import json
 import base64
 import os
+import numpy as np
+from utils.image_reviser import ImageReviser
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
@@ -18,18 +20,16 @@ def reply():
   base_data = data['before_base']
   click = data['clicked_position']
   paper_size = data['paper_size']
-  user_id = data['user_id']
 
-  bin_data = base64.b64decode(base_data.encode())
-  path = "public/{0}/images/jeans.jpg".format(user_id)
-  file_path = os.path.dirname(path)
-  if not os.path.exists(file_path):
-    os.makedirs(file_path)
-  with open(path, 'bw') as f:
-    f.write(bin_data)
-  
+  img_stream = base64.b64decode(base_data)
+  img_array = np.asarray(bytearray(img_stream), dtype=np.uint8)
+  image_reviser = ImageReviser(img_array, max(paper_size), min(paper_size), click[0], click[1])
+  image_reviser.run()
+  mm_per_px = image_reviser.get_mm_per_px()
+  img = image_reviser.get_img() # ndarray
+
   return jsonify({
-    "data": paper_size
+    "data": mm_per_px
   })
 
 
