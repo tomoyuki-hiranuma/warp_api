@@ -169,7 +169,7 @@ class ImageReviser():
 			print('### 準備')
 			#===================================================
 			#サイズ取得
-			print(self.img.shape[1])
+			# print(self.img)
 			h_img = self.img.shape[0]
 			w_img = self.img.shape[1]
 			print('size(w, h) = ({}, {})'.format(w_img, h_img))
@@ -185,7 +185,7 @@ class ImageReviser():
 			print('resized(w, h) = ({}, {})'.format(w_window, h_window))
 			
 			#描画用にコピー
-#            img_draw = deepcopy(self.img)
+	#            img_draw = deepcopy(self.img)
 			
 			
 			#===================================================
@@ -207,10 +207,10 @@ class ImageReviser():
 			radians = np.arange(0*math.pi, 2.0*math.pi, 0.1)
 			
 			#tmp表示
-#            lengths = self.get_white_lens(x_0, y_0, radians, mean_color)
-#            img_tmp = self.draw_beam(img_draw, x_0, y_0, radians, lengths)
-#            #cv2.imwrite('save/{}.png'.format(0), img_tmp)
-#            show(img_tmp)
+	#            lengths = self.get_white_lens(x_0, y_0, radians, mean_color)
+	#            img_tmp = self.draw_beam(img_draw, x_0, y_0, radians, lengths)
+	#            #cv2.imwrite('save/{}.png'.format(0), img_tmp)
+	#            show(img_tmp)
 			
 			steps = 20
 			for i in range(steps):
@@ -257,10 +257,10 @@ class ImageReviser():
 				lengths = self.get_white_lens(x_0, y_0, radians, mean_color)
 				
 				#tmp表示
-#                lengths = self.get_white_lens(x_0, y_0, radians, mean_color)
-#                img_tmp = self.draw_beam(img_draw, x_0, y_0, radians, lengths)
-#                #cv2.imwrite('save/{}.png'.format(i+1), img_tmp)
-#                show(img_tmp)
+	#                lengths = self.get_white_lens(x_0, y_0, radians, mean_color)
+	#                img_tmp = self.draw_beam(img_draw, x_0, y_0, radians, lengths)
+	#                #cv2.imwrite('save/{}.png'.format(i+1), img_tmp)
+	#                show(img_tmp)
 			print()
 			
 			#点群を配列に格納
@@ -287,7 +287,7 @@ class ImageReviser():
 			
 			#中心
 			center = np.mean(km_centers, axis=0)
-			print(print('center = {}'.format(center)))
+			print('center = {}'.format(center))
 			
 			#辺を検出
 			x_large = np.mean(km_centers[:, 0][km_centers[:, 0]>center[0]])
@@ -356,8 +356,8 @@ class ImageReviser():
 			self.img = cv2.warpPerspective(self.img, M, (c, c))
 			
 			#用紙の比率に伸ばす
-			self.img = cv2.resize(self.img, (c, int(c*paper_long/paper_short)), interpolation = cv2.INTER_CUBIC)
-			self.mm_per_px = paper_short / 200
+			self.img = cv2.resize(self.img, (c, int(c*self.paper_long/self.paper_short)), interpolation = cv2.INTER_CUBIC)
+			self.mm_per_px = self.paper_short / 200
 			#print('mm_per_px:{}'.format(self.mm_per_px))
 			
 			#黒い余白を検出
