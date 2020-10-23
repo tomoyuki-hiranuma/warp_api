@@ -19,6 +19,7 @@ json: {
   status: 200,
   data: {
     after_image: ...,
+    mm_per_px: ...,
   },
 }  
 
