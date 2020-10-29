@@ -12,7 +12,7 @@ app.config['JSON_AS_ASCII'] = False
 @app.route('/')
 def index():
   return jsonify({
-    "message": "Hello World!!"
+    "message": "Hello!!"
   })
 
 @app.route('/reply', methods=['POST'])
@@ -52,4 +52,4 @@ def Base64ToNdarray(data):
   return img_np
 
 if __name__ == '__main__':
-  app.run()
+  app.run(port=int(os.environ.get("PORT", 5000)))
