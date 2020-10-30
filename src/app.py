@@ -9,6 +9,13 @@ from utils.image_reviser import ImageReviser
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
 
+@app.after_request
+def after_request(response):
+  response.headers.add('Access-Control-Allow-Origin', '*')
+  response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+  response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+  return response
+
 @app.route('/')
 def index():
   return jsonify({
