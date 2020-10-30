@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 import json
 import base64
 import os
@@ -7,14 +8,8 @@ import cv2
 from utils.image_reviser import ImageReviser
 
 app = Flask(__name__)
+CORS(app)
 app.config['JSON_AS_ASCII'] = False
-
-@app.after_request
-def after_request(response):
-  response.headers.add('Access-Control-Allow-Origin', '*')
-  response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
-  response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
-  return response
 
 @app.route('/')
 def index():
