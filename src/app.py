@@ -23,10 +23,16 @@ def reply():
   base_data = data['before_base']
   click = data['clicked_position']
   paper_size = data['paper_size']
+  click_x = int(click[0])
+  click_y = int(click[1])
+  paper_long = int(paper_size[0])
+  paper_short = int(paper_size[1])
+  if paper_long < paper_short:
+    paper_long, paper_short = paper_short, paper_long
 
   img_np = Base64ToNdarray(base_data)
 
-  image_reviser = ImageReviser(img_np, max(paper_size), min(paper_size), click[0], click[1])
+  image_reviser = ImageReviser(img_np, paper_long, paper_short, click_x, click_y)
   image_reviser.run()
 
   mm_per_px = image_reviser.get_mm_per_px()
