@@ -16,6 +16,10 @@ def index():
   return jsonify({
     "message": "Hello!!"
   })
+  
+@app.route('/same', methods=['GET', 'POST'])
+def same():
+  return request.get_data()
 
 @app.route('/reply', methods=['POST'])
 def reply():
